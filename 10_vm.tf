@@ -1,24 +1,5 @@
 /////////////////////////////////////////////////////
 //
-// --- 지역 변수 설정 ---
-//
-/////////////////////////////////////////////////////
-
-locals {
-  size    = "Standard_B2s"
-  type    = "Standard_LRS"
-  user    = "team3"
-  keypath = "./id_rsa.pub"
-  rw      = "ReadWrite"
-  publish = "resf"
-  offer   = "rockylinux-x86_64"
-  sku     = "9-lvm"
-  ver     = "9.3.20231113"
-  pname   = "9-lvm"
-}
-
-/////////////////////////////////////////////////////
-//
 // --- 가상 머신 설정 ---
 //
 /////////////////////////////////////////////////////
@@ -80,7 +61,7 @@ resource "azurerm_linux_virtual_machine" "team3_web1_vm" {
     public_key = file(local.keypath)
   }
 
-  user_data = base64encode(file("Init_web1.sh"))
+  user_data = base64encode(file("Init_web.sh"))
 
   os_disk {
     caching              = local.rw
@@ -118,7 +99,7 @@ resource "azurerm_linux_virtual_machine" "team3_web2_vm" {
     public_key = file(local.keypath)
   }
 
-  user_data = base64encode(file("Init_web2.sh"))
+  user_data = base64encode(file("Init_web.sh"))
 
   os_disk {
     caching              = local.rw
