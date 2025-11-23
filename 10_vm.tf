@@ -12,13 +12,13 @@ resource "azurerm_linux_virtual_machine" "team3_bas_vm" {
   admin_username        = local.user
   network_interface_ids = [azurerm_network_interface.team3_bas_nic.id]
 
-  // SSH 인증 키 설정
+  # SSH 인증 키 설정
   admin_ssh_key {
     username   = local.user
     public_key = file(local.keypath)
   }
 
-  // 초기 가상머신 설정 파일 (설치 후 초기 1회 실행)
+  # 초기 가상머신 설정 파일
   user_data = base64encode(file("Init_bas.sh"))
 
   # VM의 운영 체제(OS)가 설치될 가상 하드 디스크(VHD)의 설정을 정의합니다.
@@ -159,5 +159,39 @@ resource "azurerm_linux_virtual_machine" "team3_db_vm" {
 
   boot_diagnostics {
     storage_account_uri = null
+  }
+}
+
+resource "azurerm_linux_virtual_machine" "team3_ftp_vm" {
+  name                  = "team3-ftp-vm"
+  resource_group_name   = azurerm_resource_group.team3_rg.name
+  location              = azurerm_resource_group.team3_rg.location
+  size                  = local.size
+  admin_username        = local.user
+  network_interface_ids = [azurerm_network_interface.team3_ftp_nic.id]
+
+  admin_ssh_key {
+    username   = local.user
+    public_key = file(local.keypath)
+  }
+
+  user_data = base64encode(file("Init_ftp.sh"))
+
+  os_disk {
+    caching              = local.rw
+    storage_account_type = local.type
+  }
+
+  source_image_reference {
+    publisher = local.publish
+    offer     = local.offer
+    sku       = local.sku
+    version   = local.ver
+  }
+
+  plan {
+    publisher = local.publish
+    product   = local.offer
+    name      = local.pname
   }
 }

@@ -30,3 +30,12 @@ resource "azurerm_public_ip" "team3_loadip" {
   sku                 = var.stand
   ip_version          = var.ip4
 }
+
+resource "azurerm_public_ip" "team3_vpnip" {
+  name                = "team3-vpnip"
+  location            = var.loca
+  resource_group_name = azurerm_resource_group.team3_rg.name
+  allocation_method   = var.static
+  sku                 = var.stand
+  ip_version          = var.ip4
+}

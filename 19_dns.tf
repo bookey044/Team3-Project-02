@@ -10,7 +10,7 @@ resource "azurerm_public_ip" "team3_load_ip" {
   resource_group_name = azurerm_resource_group.team3_rg.name
   location            = var.loca
   allocation_method   = var.static
-  sku                 = var.stand # Load Balancer와 연결 시 보통 Standard SKU 사용
+  sku                 = var.stand
 }
 
 # Azure DNS 영역 정의 
@@ -26,7 +26,7 @@ resource "azurerm_dns_a_record" "team3_record1" {
   resource_group_name = azurerm_resource_group.team3_rg.name
   ttl                 = 300
   records             = [azurerm_public_ip.team3_loadip.ip_address]
-}                        
+}
 
 # DNS A 레코드 (www: 서브 도메인) 정의 
 resource "azurerm_dns_a_record" "team3_record2" {

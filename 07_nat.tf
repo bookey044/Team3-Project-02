@@ -9,7 +9,7 @@ resource "azurerm_nat_gateway" "team3_nat" {
   resource_group_name     = azurerm_resource_group.team3_rg.name
   location                = azurerm_resource_group.team3_rg.location
   sku_name                = var.stand
-  idle_timeout_in_minutes = 4 // 연결이 4분 동안 사용되지 않으면 연결이 닫힙니다.
+  idle_timeout_in_minutes = 4 # 연결이 4분 동안 사용되지 않으면 연결이 닫힙니다.
 }
 
 resource "azurerm_nat_gateway_public_ip_association" "team3_nat_pubip" {
