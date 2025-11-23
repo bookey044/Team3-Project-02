@@ -7,9 +7,9 @@
 resource "azurerm_subnet" "team3_nat" {
   name                            = "team3-nat"
   resource_group_name             = azurerm_resource_group.team3_rg.name
-  virtual_network_name            = azurerm_virtual_network.team3_vnet1.name  # 이 서브넷이 속할 상위 가상 네트워크(VNet)를 참조합니다.
-  address_prefixes                = ["10.0.1.0/24"] # 서브넷에 할당될 IP 주소 범위(CIDR 블록)입니다.
-  default_outbound_access_enabled = true # 이 서브넷에서 아웃바운드 인터넷 접근을 활성화 (true)
+  virtual_network_name            = azurerm_virtual_network.team3_vnet1.name # 이 서브넷이 속할 상위 가상 네트워크(VNet)를 참조합니다.
+  address_prefixes                = ["10.0.1.0/24"]                          # 서브넷에 할당될 IP 주소 범위(CIDR 블록)입니다.
+  default_outbound_access_enabled = true                                     # 이 서브넷에서 아웃바운드 인터넷 접근을 활성화 (true)
 }
 
 resource "azurerm_subnet" "team3_web1" {
@@ -33,6 +33,23 @@ resource "azurerm_subnet" "team3_db" {
   resource_group_name             = azurerm_resource_group.team3_rg.name
   virtual_network_name            = azurerm_virtual_network.team3_vnet1.name
   address_prefixes                = ["10.0.4.0/24"]
+  default_outbound_access_enabled = false
+}
+
+# VPN Gateway 서브넷 정의 
+resource "azurerm_subnet" "team3_gateway_subnet" {
+  name                 = "GatewaySubnet" # 이름은 반드시 'GatewaySubnet'이어야 함 
+  resource_group_name  = azurerm_resource_group.team3_rg.name
+  virtual_network_name = azurerm_virtual_network.team3_vnet1.name
+  address_prefixes     = ["10.0.5.0/24"]
+  # GatewaySubnet 은 default_outbound_access_enabled 옵션이 적용되지 않습니다
+}
+
+resource "azurerm_subnet" "team3_ftp" {
+  name                            = "team3-ftp"
+  resource_group_name             = azurerm_resource_group.team3_rg.name
+  virtual_network_name            = azurerm_virtual_network.team3_vnet1.name
+  address_prefixes                = ["10.0.6.0/24"]
   default_outbound_access_enabled = false
 }
 

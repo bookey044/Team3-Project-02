@@ -5,7 +5,7 @@
 /////////////////////////////////////////////////////
 
 resource "azurerm_resource_group" "team3_rg" {
-  name     = "04-3team-bookey"
+  name     = "04-3team"
   location = var.loca
 }
 

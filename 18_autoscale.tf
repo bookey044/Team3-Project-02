@@ -4,7 +4,6 @@
 //
 /////////////////////////////////////////////////////
 
-// todo : 스트레스 테스트 필요 (스케일 인 작동은 확인하는거 봐서 아웃도 작동할거라 추정)
 resource "azurerm_monitor_autoscale_setting" "team3_auto" {
   name                = "team3-auto"
   resource_group_name = azurerm_resource_group.team3_rg.name

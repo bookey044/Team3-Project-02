@@ -6,7 +6,7 @@
 
 resource "azurerm_network_interface" "team3_web1_nic" {
   name                = "team3-web1-nic"
-  location            = azurerm_virtual_network.team3_vnet1.location // Vnet 설정
+  location            = azurerm_virtual_network.team3_vnet1.location
   resource_group_name = azurerm_resource_group.team3_rg.name
 
   ip_configuration {
@@ -14,7 +14,7 @@ resource "azurerm_network_interface" "team3_web1_nic" {
     subnet_id                     = azurerm_subnet.team3_web1.id
     private_ip_address_allocation = var.static
     private_ip_address_version    = var.ip4
-    private_ip_address            = "10.0.2.4" // Azure 에서 0 (네트워크 주소), 1 (게이트웨이), 2/3 (DNS 리졸버) 으로 쓰기 때문에 4부터 시작함
+    private_ip_address            = "10.0.2.4" # Azure 에서 0 (네트워크 주소), 1 (게이트웨이), 2/3 (DNS 리졸버) 으로 쓰기 때문에 4부터 시작함
   }
 }
 
@@ -43,6 +43,20 @@ resource "azurerm_network_interface" "team3_db_nic" {
     private_ip_address_allocation = var.static
     private_ip_address_version    = var.ip4
     private_ip_address            = "10.0.4.4"
+  }
+}
+
+resource "azurerm_network_interface" "team3_ftp_nic" {
+  name                = "team3-ftp-nic"
+  location            = azurerm_virtual_network.team3_vnet1.location
+  resource_group_name = azurerm_resource_group.team3_rg.name
+
+  ip_configuration {
+    name                          = "team3-ftp-nic-ipconf"
+    subnet_id                     = azurerm_subnet.team3_ftp.id
+    private_ip_address_allocation = var.static
+    private_ip_address_version    = var.ip4
+    private_ip_address            = "10.0.6.4"
   }
 }
 

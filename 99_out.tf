@@ -17,5 +17,5 @@ output "load_pub_ip" {
 }
 
 output "azure_dns_nameservers" {
-  value       = azurerm_dns_zone.team3_dns.name_servers
+  value = azurerm_dns_zone.team3_dns.name_servers
 }
